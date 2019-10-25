@@ -1,0 +1,124 @@
+swagger: '2.0'
+info:
+  description: This is the API specification for Zus token project
+  version: 0.1.0
+  title: Zus API
+host: api.zus.com
+basePath: /v1
+schemes:
+  - http
+consumes:
+  - application/json
+produces:
+  - application/json
+tags:
+  - name: tokens
+    description: Token actions
+    
+paths:
+  /*:
+    options:
+      operationId: optionsAllow
+      security: []
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Successful operation
+  /hash:
+    post:
+      tags:
+        - tokens
+      summary: Creates new hash
+      operationId: createHash
+      security: []
+      parameters:
+        - in: body
+          name: token
+          required: true
+          schema:
+            type: object
+            properties:
+              token:
+                type: string
+      responses:
+        '200':
+          description: Successful operation
+          schema:
+            $ref: '#/definitions/TokenResponse'
+        default:
+          description: error
+          schema:
+            $ref: '#/definitions/GeneralError'
+            
+  /hashes:
+    get:
+      tags:
+        - tokens
+      summary: Get all hashs received
+      description: Get all hashs received
+      operationId: getHashs
+      responses:
+        '200':
+          description: Successful operation
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/TokenInfo'
+        default:
+          description: error
+          schema:
+            $ref: '#/definitions/GeneralError'
+            
+  /hashes/{id}:
+    get:
+      tags:
+        - tokens
+      summary: Get hahs info
+      description: Get hahs info
+      operationId: getUrlStats
+      parameters:
+        - in: path
+          name: id
+          type: string
+          required: true
+      responses:
+        '200':
+          description: Successful operation
+          schema:
+            $ref: '#/definitions/TokenInfo'
+        default:
+          description: error
+          schema:
+            $ref: '#/definitions/GeneralError'
+          
+definitions:
+  GeneralError:
+    properties:
+      code:
+        type: integer
+        format: int
+      message:
+        type: string
+        
+  TokenResponse:
+    type: object
+    properties:
+      hash:
+        type: string
+      created_at:
+        type: string
+        format: date-time
+
+  TokenInfo:
+    type: object
+    properties:
+      token:
+        type: string
+      hash:
+        type: string
+      created_at:
+        type: string
+        format: date-time
+
+
