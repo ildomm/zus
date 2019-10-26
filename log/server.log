@@ -1,0 +1,30 @@
+2019/10/26 17:01:28 Connecting databases
+2019/10/26 17:01:28 PostgreSQL: host=localhost port=3306 user=zus password=y8364mry5w dbname=zus sslmode=disable
+2019/10/26 17:09:39 Connecting databases
+2019/10/26 17:09:39 PostgreSQL: host=localhost port=3306 user=zus password=y8364mry5w dbname=zus sslmode=disable
+2019/10/26 17:13:11 Connecting databases
+2019/10/26 17:13:14 PostgreSQL: host=localhost port=3306 user=zus password=y8364mry5w dbname=zus sslmode=disable
+2019/10/26 17:14:03 Connecting databases
+2019/10/26 17:14:08 PostgreSQL: host=localhost port=5432 user=zus password=y8364mry5w dbname=zus sslmode=disable
+2019/10/26 17:14:56 Connecting databases
+2019/10/26 17:14:59 PostgreSQL: host=127.0.0.1 port=5432 user=zus password=y8364mry5w dbname=zus sslmode=disable
+2019/10/26 17:15:08 Connecting databases
+2019/10/26 17:15:12 PostgreSQL: host=127.0.0.1 port=5432 user=zus password=y8364mry5w dbname=zus sslmode=disable
+2019/10/26 17:22:10 Connecting databases
+2019/10/26 17:22:15 PostgreSQL: host=127.0.0.1 port=5432 user=zus password=y8364mry5w dbname=zus sslmode=disable
+2019/10/26 17:22:45 Connecting databases
+2019/10/26 17:22:52 PostgreSQL: host=127.0.0.1 port=5432 user=zus password=y8364mry5w dbname=zus sslmode=disable
+2019/10/26 17:23:27 Connecting databases
+2019/10/26 17:23:29 PostgreSQL: host=127.0.0.1 port=5432 user=zus password=y8364mry5w dbname=zus sslmode=disable
+2019/10/26 17:27:45 Connecting databases
+2019/10/26 17:27:47 PostgreSQL: host=127.0.0.1 port=5432 user=zus password=y8364mry5w dbname=zus sslmode=disable
+2019/10/26 17:31:04 Connecting databases
+2019/10/26 17:31:07 PostgreSQL: host=127.0.0.1 port=5432 user=zus password=y8364mry5w dbname=zus sslmode=disable
+2019/10/26 17:37:10 Connecting databases
+2019/10/26 17:37:13 PostgreSQL: host=127.0.0.1 port=5432 user=zus password=y8364mry5w dbname=zus sslmode=disable
+2019/10/26 17:37:25 Serving zus at http://[::]:80
+2019/10/26 17:43:27 Shutting down... 
+2019/10/26 17:43:27 Stopped serving zus at http://[::]:80
+2019/10/26 17:43:39 Connecting databases
+2019/10/26 17:45:27 PostgreSQL: host=127.0.0.1 port=5432 user=zus password=y8364mry5w dbname=zus sslmode=disable
+2019/10/26 17:45:27 Serving zus at http://[::]:80

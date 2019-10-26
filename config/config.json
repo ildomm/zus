@@ -1,0 +1,22 @@
+{
+  "runtime": {
+    "project": "ZUS",
+    "port": 80,
+    "host": "0.0.0.0",
+    "url": "http://localhost"
+  },
+  "database": {
+    "host": "127.0.0.1",
+    "port": "5432",
+    "username": "zus",
+    "password": "y8364mry5w",
+    "database": "zus"
+  },
+  "logger": {
+    "base_path": "/src/github.com/ildomm/zus/log/",
+    "max_size": 100,
+    "max_backups": 3,
+    "max_age": 365,
+    "compress": true
+  }
+}
