@@ -1,15 +1,13 @@
-// This file is safe to edit. Once it exists it will not be overwritten
-
 package restapi
 
 import (
 	"crypto/tls"
+	"github.com/ildomm/zus/handlers"
+	handler_tokens "github.com/ildomm/zus/handlers/tokens"
 	"net/http"
 
-	errors "github.com/go-openapi/errors"
-	runtime "github.com/go-openapi/runtime"
-	middleware "github.com/go-openapi/runtime/middleware"
-
+	"github.com/go-openapi/errors"
+	"github.com/go-openapi/runtime"
 	"github.com/ildomm/zus/restapi/operations"
 	"github.com/ildomm/zus/restapi/operations/tokens"
 )
@@ -23,38 +21,14 @@ func configureFlags(api *operations.ZusAPI) {
 func configureAPI(api *operations.ZusAPI) http.Handler {
 	// configure the api here
 	api.ServeError = errors.ServeError
-
-	// Set your custom logger if needed. Default one is log.Printf
-	// Expected interface func(string, ...interface{})
-	//
-	// Example:
-	// api.Logger = log.Printf
-
 	api.JSONConsumer = runtime.JSONConsumer()
-
 	api.JSONProducer = runtime.JSONProducer()
 
-	if api.TokensCreateHashHandler == nil {
-		api.TokensCreateHashHandler = tokens.CreateHashHandlerFunc(func(params tokens.CreateHashParams) middleware.Responder {
-			return middleware.NotImplemented("operation tokens.CreateHash has not yet been implemented")
-		})
-	}
-	if api.TokensGetHashsHandler == nil {
-		api.TokensGetHashsHandler = tokens.GetHashsHandlerFunc(func(params tokens.GetHashsParams) middleware.Responder {
-			return middleware.NotImplemented("operation tokens.GetHashs has not yet been implemented")
-		})
-	}
-	if api.TokensGetURLStatsHandler == nil {
-		api.TokensGetURLStatsHandler = tokens.GetURLStatsHandlerFunc(func(params tokens.GetURLStatsParams) middleware.Responder {
-			return middleware.NotImplemented("operation tokens.GetURLStats has not yet been implemented")
-		})
-	}
-	if api.OptionsAllowHandler == nil {
-		api.OptionsAllowHandler = operations.OptionsAllowHandlerFunc(func(params operations.OptionsAllowParams) middleware.Responder {
-			return middleware.NotImplemented("operation .OptionsAllow has not yet been implemented")
-		})
-	}
+	api.TokensCreateHashHandler = tokens.CreateHashHandlerFunc(handler_tokens.TokensCreateHandlerResponder)
+	api.TokensGetHashesHandler = tokens.GetHashesHandlerFunc(handler_tokens.GetHashesHandlerResponder)
+	api.TokensGetHashHandler = tokens.GetHashHandlerFunc(handler_tokens.GetHashHandlerResponder)
 
+	api.OptionsAllowHandler = operations.OptionsAllowHandlerFunc(handlers.OptionsHandlerResponder)
 	api.ServerShutdown = func() {}
 
 	return setupGlobalMiddleware(api.Serve(setupMiddlewares))

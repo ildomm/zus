@@ -24,6 +24,10 @@ type TokenInfo struct {
 	// hash
 	Hash string `json:"hash,omitempty"`
 
+	// id
+	// Format: uuid
+	ID strfmt.UUID `json:"id,omitempty"`
+
 	// token
 	Token string `json:"token,omitempty"`
 }
@@ -33,6 +37,10 @@ func (m *TokenInfo) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateCreatedAt(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateID(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -49,6 +57,19 @@ func (m *TokenInfo) validateCreatedAt(formats strfmt.Registry) error {
 	}
 
 	if err := validate.FormatOf("created_at", "body", "date-time", m.CreatedAt.String(), formats); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *TokenInfo) validateID(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.ID) { // not required
+		return nil
+	}
+
+	if err := validate.FormatOf("id", "body", "uuid", m.ID.String(), formats); err != nil {
 		return err
 	}
 

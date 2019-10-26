@@ -42,11 +42,11 @@ func NewZusAPI(spec *loads.Document) *ZusAPI {
 		TokensCreateHashHandler: tokens.CreateHashHandlerFunc(func(params tokens.CreateHashParams) middleware.Responder {
 			return middleware.NotImplemented("operation TokensCreateHash has not yet been implemented")
 		}),
-		TokensGetHashsHandler: tokens.GetHashsHandlerFunc(func(params tokens.GetHashsParams) middleware.Responder {
-			return middleware.NotImplemented("operation TokensGetHashs has not yet been implemented")
+		TokensGetHashHandler: tokens.GetHashHandlerFunc(func(params tokens.GetHashParams) middleware.Responder {
+			return middleware.NotImplemented("operation TokensGetHash has not yet been implemented")
 		}),
-		TokensGetURLStatsHandler: tokens.GetURLStatsHandlerFunc(func(params tokens.GetURLStatsParams) middleware.Responder {
-			return middleware.NotImplemented("operation TokensGetURLStats has not yet been implemented")
+		TokensGetHashesHandler: tokens.GetHashesHandlerFunc(func(params tokens.GetHashesParams) middleware.Responder {
+			return middleware.NotImplemented("operation TokensGetHashes has not yet been implemented")
 		}),
 		OptionsAllowHandler: OptionsAllowHandlerFunc(func(params OptionsAllowParams) middleware.Responder {
 			return middleware.NotImplemented("operation OptionsAllow has not yet been implemented")
@@ -84,10 +84,10 @@ type ZusAPI struct {
 
 	// TokensCreateHashHandler sets the operation handler for the create hash operation
 	TokensCreateHashHandler tokens.CreateHashHandler
-	// TokensGetHashsHandler sets the operation handler for the get hashs operation
-	TokensGetHashsHandler tokens.GetHashsHandler
-	// TokensGetURLStatsHandler sets the operation handler for the get Url stats operation
-	TokensGetURLStatsHandler tokens.GetURLStatsHandler
+	// TokensGetHashHandler sets the operation handler for the get hash operation
+	TokensGetHashHandler tokens.GetHashHandler
+	// TokensGetHashesHandler sets the operation handler for the get hashes operation
+	TokensGetHashesHandler tokens.GetHashesHandler
 	// OptionsAllowHandler sets the operation handler for the options allow operation
 	OptionsAllowHandler OptionsAllowHandler
 
@@ -157,12 +157,12 @@ func (o *ZusAPI) Validate() error {
 		unregistered = append(unregistered, "tokens.CreateHashHandler")
 	}
 
-	if o.TokensGetHashsHandler == nil {
-		unregistered = append(unregistered, "tokens.GetHashsHandler")
+	if o.TokensGetHashHandler == nil {
+		unregistered = append(unregistered, "tokens.GetHashHandler")
 	}
 
-	if o.TokensGetURLStatsHandler == nil {
-		unregistered = append(unregistered, "tokens.GetURLStatsHandler")
+	if o.TokensGetHashesHandler == nil {
+		unregistered = append(unregistered, "tokens.GetHashesHandler")
 	}
 
 	if o.OptionsAllowHandler == nil {
@@ -275,12 +275,12 @@ func (o *ZusAPI) initHandlerCache() {
 	if o.handlers["GET"] == nil {
 		o.handlers["GET"] = make(map[string]http.Handler)
 	}
-	o.handlers["GET"]["/hashes"] = tokens.NewGetHashs(o.context, o.TokensGetHashsHandler)
+	o.handlers["GET"]["/hashes/{id}"] = tokens.NewGetHash(o.context, o.TokensGetHashHandler)
 
 	if o.handlers["GET"] == nil {
 		o.handlers["GET"] = make(map[string]http.Handler)
 	}
-	o.handlers["GET"]["/hashes/{id}"] = tokens.NewGetURLStats(o.context, o.TokensGetURLStatsHandler)
+	o.handlers["GET"]["/hashes"] = tokens.NewGetHashes(o.context, o.TokensGetHashesHandler)
 
 	if o.handlers["OPTIONS"] == nil {
 		o.handlers["OPTIONS"] = make(map[string]http.Handler)

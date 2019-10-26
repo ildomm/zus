@@ -91,12 +91,12 @@ func init() {
     },
     "/hashes": {
       "get": {
-        "description": "Get all hashs received",
+        "description": "Get all hashes received",
         "tags": [
           "tokens"
         ],
-        "summary": "Get all hashs received",
-        "operationId": "getHashs",
+        "summary": "Get all hashes received",
+        "operationId": "getHashes",
         "responses": {
           "200": {
             "description": "Successful operation",
@@ -123,7 +123,7 @@ func init() {
           "tokens"
         ],
         "summary": "Get hahs info",
-        "operationId": "getUrlStats",
+        "operationId": "getHash",
         "parameters": [
           {
             "type": "string",
@@ -170,6 +170,10 @@ func init() {
         },
         "hash": {
           "type": "string"
+        },
+        "id": {
+          "type": "string",
+          "format": "uuid"
         },
         "token": {
           "type": "string"
@@ -270,12 +274,12 @@ func init() {
     },
     "/hashes": {
       "get": {
-        "description": "Get all hashs received",
+        "description": "Get all hashes received",
         "tags": [
           "tokens"
         ],
-        "summary": "Get all hashs received",
-        "operationId": "getHashs",
+        "summary": "Get all hashes received",
+        "operationId": "getHashes",
         "responses": {
           "200": {
             "description": "Successful operation",
@@ -302,7 +306,7 @@ func init() {
           "tokens"
         ],
         "summary": "Get hahs info",
-        "operationId": "getUrlStats",
+        "operationId": "getHash",
         "parameters": [
           {
             "type": "string",
@@ -349,6 +353,10 @@ func init() {
         },
         "hash": {
           "type": "string"
+        },
+        "id": {
+          "type": "string",
+          "format": "uuid"
         },
         "token": {
           "type": "string"

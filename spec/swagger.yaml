@@ -14,7 +14,7 @@ produces:
 tags:
   - name: tokens
     description: Token actions
-    
+
 paths:
   /*:
     options:
@@ -50,14 +50,14 @@ paths:
           description: error
           schema:
             $ref: '#/definitions/GeneralError'
-            
+
   /hashes:
     get:
       tags:
         - tokens
-      summary: Get all hashs received
-      description: Get all hashs received
-      operationId: getHashs
+      summary: Get all hashes received
+      description: Get all hashes received
+      operationId: getHashes
       responses:
         '200':
           description: Successful operation
@@ -69,14 +69,14 @@ paths:
           description: error
           schema:
             $ref: '#/definitions/GeneralError'
-            
+
   /hashes/{id}:
     get:
       tags:
         - tokens
       summary: Get hahs info
       description: Get hahs info
-      operationId: getUrlStats
+      operationId: getHash
       parameters:
         - in: path
           name: id
@@ -91,7 +91,7 @@ paths:
           description: error
           schema:
             $ref: '#/definitions/GeneralError'
-          
+
 definitions:
   GeneralError:
     properties:
@@ -100,7 +100,7 @@ definitions:
         format: int
       message:
         type: string
-        
+
   TokenResponse:
     type: object
     properties:
@@ -113,6 +113,9 @@ definitions:
   TokenInfo:
     type: object
     properties:
+      id:
+        type: string
+        format: uuid
       token:
         type: string
       hash:
