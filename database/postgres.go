@@ -30,7 +30,7 @@ func postgres() *dbr.Connection {
 	/* See: https://github.com/gocraft/dbr
 	wiki -> https://godoc.org/github.com/gocraft/dbr
 	*/
-	conn, err := dbr.Open("postgres", psqlInfo, nil )
+	conn, err := dbr.Open("postgres", psqlInfo, nil)
 	if err != nil {
 		log.Fatal(err)
 		panic(err)

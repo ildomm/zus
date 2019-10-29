@@ -9,6 +9,7 @@ import (
 
 var conn *DATABASES
 var once sync.Once
+
 type DATABASES struct {
 	Postgres *dbr.Connection
 }
@@ -25,7 +26,7 @@ func Setup() *DATABASES {
 }
 
 func instances() *DATABASES {
-	log.Println("Connecting databases" )
+	log.Println("Connecting databases")
 
 	return &DATABASES{
 		Postgres: postgres(),

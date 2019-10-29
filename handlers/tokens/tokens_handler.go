@@ -16,12 +16,12 @@ func TokensCreateHandlerResponder(params CreateHashParams) middleware.Responder 
 	token.Token = params.Token.Token
 
 	if token.Token == "" {
-		return NewCreateHashDefault(400 ).WithPayload(&models.GeneralError{Code: 400, Message: "Token required"})
+		return NewCreateHashDefault(400).WithPayload(&models.GeneralError{Code: 400, Message: "Token required"})
 	}
 	token, err := tokens.Insert(*token)
 
 	if err != nil {
-		return NewCreateHashDefault(500 ).WithPayload(&models.GeneralError{Code: 500, Message: err.Message})
+		return NewCreateHashDefault(500).WithPayload(&models.GeneralError{Code: 500, Message: err.Message})
 	}
 
 	response := new(models.TokenResponse)

@@ -19,7 +19,7 @@ func GenerateRandomHttpRequest() *http.Request {
 func GetHashesPayload(middlewareResult middleware.Responder) []*models.TokenInfo {
 	out, err := json.Marshal(middlewareResult)
 	if err != nil {
-		panic (err)
+		panic(err)
 	}
 	payload := new(tokens.GetHashesOK)
 	if err := json.Unmarshal(out, &payload); err != nil {
@@ -32,7 +32,7 @@ func GetHashesPayload(middlewareResult middleware.Responder) []*models.TokenInfo
 func GetCreateHashPayload(middlewareResult middleware.Responder) *models.TokenResponse {
 	out, err := json.Marshal(middlewareResult)
 	if err != nil {
-		panic (err)
+		panic(err)
 	}
 	handlerOK := new(tokens.CreateHashOK)
 	if err := json.Unmarshal(out, &handlerOK); err != nil {
@@ -45,7 +45,7 @@ func GetCreateHashPayload(middlewareResult middleware.Responder) *models.TokenRe
 func GetHashPayload(middlewareResult middleware.Responder) *models.TokenInfo {
 	out, err := json.Marshal(middlewareResult)
 	if err != nil {
-		panic (err)
+		panic(err)
 	}
 	payload := new(tokens.GetHashOK)
 	if err := json.Unmarshal(out, &payload); err != nil {

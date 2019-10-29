@@ -2,14 +2,13 @@ package models
 
 import (
 	"fmt"
-	"github.com/ildomm/linx_challenge/config"
-	"crypto/md5"
+	"golang.org/x/crypto/sha3"
 )
 
-
 func (m *TokenInfo) GenerateHash() string {
-	h := md5.New()
-	h.Write([]byte(m.Token))
-	m.Hash = config.App.Runtime.Url + fmt.Sprintf("%x", h.Sum(nil))
-	return m.Hash
+	encoder := sha3.New256()
+	encoder.Write([]byte(m.Token))
+	result := encoder.Sum(nil)
+
+	return fmt.Sprintf("%x", result)
 }

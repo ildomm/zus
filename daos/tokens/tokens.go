@@ -8,7 +8,7 @@ import (
 	"log"
 	"time"
 )
-	
+
 var tableName = "tokens"
 var tableFields = "token, hash, created_at"
 

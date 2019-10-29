@@ -19,6 +19,7 @@ func TestTokensHandler(t *testing.T) {
 	RegisterFailHandler(Fail)
 	RunSpecs(t, "Tokens Handler Suite")
 }
+
 var _ = Describe("Tokens Handler", func() {
 
 	BeforeSuite(func() {
@@ -37,7 +38,7 @@ var _ = Describe("Tokens Handler", func() {
 		})
 	})
 
-	Context("Retrieving", func() {
+	Context("Creating", func() {
 
 		It("fail, has to return error", func() {
 			paramsCreate := new(tokens.CreateHashParams)
@@ -62,7 +63,9 @@ var _ = Describe("Tokens Handler", func() {
 			paramsCreate.Token = *token
 			paramsCreate.Token.Token = faker.Bitcoin().Address()
 
-			handler.TokensCreateHandlerResponder(*paramsCreate)
+			middlewareResult := handler.TokensCreateHandlerResponder(*paramsCreate)
+			Expect(reflect.TypeOf(middlewareResult)).To(Equal(reflect.TypeOf(tokens.NewCreateHashOK())))
+
 			Expect(db.CountTable("tokens")).To(Equal(int(1)))
 		})
 	})
@@ -90,7 +93,6 @@ var _ = Describe("Tokens Handler", func() {
 			middlewareResultCreation := handler.TokensCreateHandlerResponder(*paramsCreate)
 			payload := utils.GetCreateHashPayload(middlewareResultCreation)
 			Expect(payload).ToNot(BeNil())
-
 
 			paramsSearch := new(tokens.GetHashParams)
 			paramsSearch.HTTPRequest = utils.GenerateRandomHttpRequest()
@@ -125,7 +127,6 @@ var _ = Describe("Tokens Handler", func() {
 			payload := utils.GetCreateHashPayload(middlewareResultCreation)
 			Expect(payload).ToNot(BeNil())
 
-
 			paramsSearch := new(tokens.GetHashesParams)
 			paramsSearch.HTTPRequest = utils.GenerateRandomHttpRequest()
 			middlewareResultSearch := handler.GetHashesHandlerResponder(*paramsSearch)
@@ -134,7 +135,5 @@ var _ = Describe("Tokens Handler", func() {
 			Expect(payloadS).ToNot(BeNil())
 		})
 	})
-
-
 
 })

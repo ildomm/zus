@@ -1,10 +1,10 @@
 package config
 
 import (
-	"log"
-	"os"
 	"github.com/micro/go-config"
 	"github.com/micro/go-config/source/file"
+	"log"
+	"os"
 )
 
 var App = Configuration{}
@@ -14,23 +14,23 @@ func Setup() {
 }
 
 type Configuration struct {
-	Runtime     Runtime     `json:"runtime"`
-	Database    Database    `json:"database"`
-	Logger      Logger      `json:"logger"`
+	Runtime  Runtime  `json:"runtime"`
+	Database Database `json:"database"`
+	Logger   Logger   `json:"logger"`
 }
 
 type Runtime struct {
-	Project       string `json:"project"`
-	Port          int    `json:"port"`
-	Host          string `json:"host"`
+	Project string `json:"project"`
+	Port    int    `json:"port"`
+	Host    string `json:"host"`
 }
 
 type Database struct {
-	Host      string `json:"host"`
-	Port      string `json:"port"`
-	Username  string `json:"username"`
-	Password  string `json:"password"`
-	Database  string `json:"database"`
+	Host     string `json:"host"`
+	Port     string `json:"port"`
+	Username string `json:"username"`
+	Password string `json:"password"`
+	Database string `json:"database"`
 }
 
 type Logger struct {
