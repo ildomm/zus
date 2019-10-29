@@ -10,7 +10,23 @@ GRANT ALL PRIVILEGES ON DATABASE zus TO zus;
 
 /use zus;
 CREATE EXTENSION "uuid-ossp";
+```
 
-Install dependencies:
+## Validation
 
+Testing:
+```
+run_tests.*
+```
+
+## Running
+
+Locally:
+```
+go build cmd\zus-server\main.go
+```
+
+Deploying:
+```
+deploy.sh
 ```
