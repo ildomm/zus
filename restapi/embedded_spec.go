@@ -33,8 +33,8 @@ func init() {
     "title": "Zus API",
     "version": "0.1.0"
   },
-  "host": "api.zus.com",
-  "basePath": "/v1",
+  "host": "localhost:80",
+  "basePath": "/api",
   "paths": {
     "/*": {
       "options": {
@@ -216,8 +216,8 @@ func init() {
     "title": "Zus API",
     "version": "0.1.0"
   },
-  "host": "api.zus.com",
-  "basePath": "/v1",
+  "host": "localhost:80",
+  "basePath": "/api",
   "paths": {
     "/*": {
       "options": {

@@ -7,8 +7,8 @@ This is the API specification for Zus token project
 
     Schemes:
       http
-    Host: api.zus.com
-    BasePath: /v1
+    Host: localhost:80
+    BasePath: /api
     Version: 0.1.0
 
     Consumes:
