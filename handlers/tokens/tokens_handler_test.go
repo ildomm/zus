@@ -1,27 +1,28 @@
 package handlers_test
 
 import (
-	"github.com/ildomm/linx_challenge/config"
-	"github.com/ildomm/linx_challenge/db"
-	handlers "github.com/ildomm/linx_challenge/handlers/users"
-	"github.com/ildomm/linx_challenge/restapi/operations/users"
-	"github.com/ildomm/linx_challenge/utils"
+	"github.com/ildomm/zus/config"
+	"github.com/ildomm/zus/database"
+	handler "github.com/ildomm/zus/handlers/tokens"
+	"github.com/ildomm/zus/restapi/operations/tokens"
+	"github.com/ildomm/zus/utils"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 	"go/build"
 	"os"
 	"reflect"
+	"syreclabs.com/go/faker"
 	"testing"
 )
 
-func TestUsersHandler(t *testing.T) {
+func TestTokensHandler(t *testing.T) {
 	RegisterFailHandler(Fail)
-	RunSpecs(t, "Users Handler Suite")
+	RunSpecs(t, "Tokens Handler Suite")
 }
-var _ = Describe("Users Handler", func() {
+var _ = Describe("Tokens Handler", func() {
 
 	BeforeSuite(func() {
-		os.Chdir(build.Default.GOPATH + "/src/github.com/ildomm/linx_challenge/")
+		os.Chdir(build.Default.GOPATH + "/src/github.com/ildomm/zus/")
 		config.Setup()
 		db.Setup()
 	})
@@ -30,72 +31,110 @@ var _ = Describe("Users Handler", func() {
 		db.CleanDatabases()
 	})
 
-	Context("User", func() {
+	Context("Initialization", func() {
+		It("success, has to be empty", func() {
+			Expect(db.CountTable("tokens")).To(Equal(int(0)))
+		})
+	})
 
-		It("success, it has to create new user", func() {
-			params := utils.GenerateRandomUserParams(nil)
-			middlewareResult := handlers.CreateUserHandlerResponder(*params)
+	Context("Retrieving", func() {
 
-			payload := utils.GetUsersCreationPayload(middlewareResult)
+		It("fail, has to return error", func() {
+			paramsCreate := new(tokens.CreateHashParams)
+			paramsCreate.HTTPRequest = utils.GenerateRandomHttpRequest()
 
-			Expect(reflect.TypeOf(middlewareResult)).To(Equal(reflect.TypeOf(users.NewCreateUserOK())))
-			Expect(payload).ToNot(BeNil())
-			Expect(payload.ID).To(Equal(params.ID.ID))
-			Expect(db.CountTable("users")).To(Equal(int(1)))
+			token := new(tokens.CreateHashBody)
+			paramsCreate.Token = *token
+			paramsCreate.Token.Token = ""
+
+			middlewareResultCreation := handler.TokensCreateHandlerResponder(*paramsCreate)
+			Expect(reflect.TypeOf(middlewareResultCreation)).
+				To(Equal(reflect.TypeOf(tokens.NewCreateHashDefault(400))))
+
+			Expect(db.CountTable("tokens")).To(Equal(int(0)))
 		})
 
-		It("fail, it has to deny ", func() {
-			id := "fixed"
-			params := utils.GenerateRandomUserParams(&id)
-			handlers.CreateUserHandlerResponder(*params)
-			Expect(db.CountTable("users")).To(Equal(int(1)))
+		It("success, has to create", func() {
+			paramsCreate := new(tokens.CreateHashParams)
+			paramsCreate.HTTPRequest = utils.GenerateRandomHttpRequest()
 
-			middlewareResult := handlers.CreateUserHandlerResponder(*params)
+			token := new(tokens.CreateHashBody)
+			paramsCreate.Token = *token
+			paramsCreate.Token.Token = faker.Bitcoin().Address()
 
-			payload := utils.GetUsersCreationPayload(middlewareResult)
+			handler.TokensCreateHandlerResponder(*paramsCreate)
+			Expect(db.CountTable("tokens")).To(Equal(int(1)))
+		})
+	})
 
-			Expect(reflect.TypeOf(middlewareResult)).To(Equal(reflect.TypeOf(users.NewCreateUserDefault(409))))
+	Context("Retrieving entry", func() {
+
+		It("fail, has to return empty", func() {
+			params := new(tokens.GetHashParams)
+			params.HTTPRequest = utils.GenerateRandomHttpRequest()
+			params.ID = faker.Bitcoin().Address()
+			middlewareResult := handler.GetHashHandlerResponder(*params)
+
+			payload := utils.GetHashesPayload(middlewareResult)
 			Expect(payload).To(BeNil())
-			Expect(db.CountTable("users")).To(Equal(int(1)))
 		})
 
-	})
+		It("success, has to return some", func() {
+			paramsCreate := new(tokens.CreateHashParams)
+			paramsCreate.HTTPRequest = utils.GenerateRandomHttpRequest()
 
-	Context("Url", func() {
+			token := new(tokens.CreateHashBody)
+			paramsCreate.Token = *token
+			paramsCreate.Token.Token = faker.Bitcoin().Address()
 
-		It("success, it has to create new user + url", func() {
-			id := "fixed"
-			paramsU := utils.GenerateRandomUserParams(&id)
-			handlers.CreateUserHandlerResponder(*paramsU)
-
-			paramsR := utils.GenerateRandomUrlParams(id)
-			middlewareResult := handlers.CreateURLHandlerResponder(*paramsR)
-
-			payload := utils.GetUrlsCreationPayload(middlewareResult)
-
-			Expect(reflect.TypeOf(middlewareResult)).To(Equal(reflect.TypeOf(users.NewCreateURLOK())))
+			middlewareResultCreation := handler.TokensCreateHandlerResponder(*paramsCreate)
+			payload := utils.GetCreateHashPayload(middlewareResultCreation)
 			Expect(payload).ToNot(BeNil())
-			Expect(payload.ShortURL).ToNot(BeNil())
-			Expect(db.CountTable("users")).To(Equal(int(1)))
-			Expect(db.CountTable("urls")).To(Equal(int(1)))
+
+
+			paramsSearch := new(tokens.GetHashParams)
+			paramsSearch.HTTPRequest = utils.GenerateRandomHttpRequest()
+			paramsSearch.ID = payload.Hash
+			middlewareResultSearch := handler.GetHashHandlerResponder(*paramsSearch)
+
+			payloadS := utils.GetHashPayload(middlewareResultSearch)
+			Expect(payloadS).ToNot(BeNil())
 		})
-
-		It("success, it has to delete user and url(s)", func() {
-			id := "fixed"
-			paramsU := utils.GenerateRandomUserParams(&id)
-			handlers.CreateUserHandlerResponder(*paramsU)
-
-			paramsR := utils.GenerateRandomUrlParams(id)
-			handlers.CreateURLHandlerResponder(*paramsR)
-
-			paramsD := utils.GenerateRandomUserDeleteParams(&id)
-			handlers.DeleteUserHandlerResponder(*paramsD)
-
-			Expect(db.CountTable("users")).To(Equal(int(0)))
-			Expect(db.CountTable("urls")).To(Equal(int(0)))
-		})
-
 	})
+
+	Context("Retrieving list", func() {
+
+		It("fail, has to return empty", func() {
+			params := new(tokens.GetHashesParams)
+			params.HTTPRequest = utils.GenerateRandomHttpRequest()
+			middlewareResult := handler.GetHashesHandlerResponder(*params)
+
+			payload := utils.GetHashesPayload(middlewareResult)
+			Expect(payload).To(BeNil())
+		})
+
+		It("success, has to return some ", func() {
+			paramsCreate := new(tokens.CreateHashParams)
+			paramsCreate.HTTPRequest = utils.GenerateRandomHttpRequest()
+
+			token := new(tokens.CreateHashBody)
+			paramsCreate.Token = *token
+			paramsCreate.Token.Token = faker.Bitcoin().Address()
+
+			middlewareResultCreation := handler.TokensCreateHandlerResponder(*paramsCreate)
+			payload := utils.GetCreateHashPayload(middlewareResultCreation)
+			Expect(payload).ToNot(BeNil())
+
+
+			paramsSearch := new(tokens.GetHashesParams)
+			paramsSearch.HTTPRequest = utils.GenerateRandomHttpRequest()
+			middlewareResultSearch := handler.GetHashesHandlerResponder(*paramsSearch)
+
+			payloadS := utils.GetHashesPayload(middlewareResultSearch)
+			Expect(payloadS).ToNot(BeNil())
+		})
+	})
+
 
 
 })
