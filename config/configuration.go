@@ -23,7 +23,6 @@ type Runtime struct {
 	Project       string `json:"project"`
 	Port          int    `json:"port"`
 	Host          string `json:"host"`
-	Url           string `json:"url"`
 }
 
 type Database struct {

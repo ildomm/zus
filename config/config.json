@@ -1,9 +1,8 @@
 {
   "runtime": {
     "project": "ZUS",
-    "port": 80,
-    "host": "0.0.0.0",
-    "url": "http://localhost"
+    "port": 83,
+    "host": "0.0.0.0"
   },
   "database": {
     "host": "127.0.0.1",
