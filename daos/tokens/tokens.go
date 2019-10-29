@@ -10,56 +10,38 @@ import (
 )
 	
 var tableName = "tokens"
-var tableFields = "id, token, hash, created_at"
+var tableFields = "token, hash, created_at"
 
-func All() *models.TokenInfo {
-	var entry *models.TokenInfo
+func All() []*models.TokenInfo {
+	var entry []*models.TokenInfo
 
 	session := db.Postgres()
-	session.Select(tableFields).From(tableName).
-		LoadOne(&entry)
+	_, err := session.Select(tableFields).From(tableName).Load(&entry)
+	if err != nil {
+		return nil
+	}
 
 	return entry
 }
 
-func ById(id string) *models.TokenInfo {
+func ByHash(hash string) *models.TokenInfo {
 	var entry *models.TokenInfo
 
 	session := db.Postgres()
 	session.Select(tableFields).From(tableName).
-		Where("id = ?", id).
+		Where("hash = ?", hash).
 		LoadOne(&entry)
 	return entry
 }
 
-func ByToken(url string) *models.TokenInfo {
-	var entry *models.TokenInfo
-
-	session := db.Postgres()
-	session.Select(tableFields).From(tableName).
-		Where("url = ?", url).
-		LoadOne(&entry)
-	return entry
-}
-
-func ByHash(short string) *models.TokenInfo {
-	var entry *models.TokenInfo
-
-	session := db.Postgres()
-	session.Select(tableFields).From(tableName).
-		Where("short = ?", short).
-		LoadOne(&entry)
-	return entry
-}
-
-func TokenExists(url string) bool {
+func TokenExists(token string) bool {
 	var total int
 
 	session := db.Postgres()
 	err :=
 		session.Select("COUNT(*) as total").
 			From(tableName).
-			Where("url = ?", url).
+			Where("token = ?", token).
 			LoadOne(&total)
 
 	if err != nil {
@@ -72,7 +54,7 @@ func TokenExists(url string) bool {
 	}
 }
 
-func Insert(entry models.TokenInfo, userId int64) (*models.TokenInfo, *pq.Error) {
+func Insert(entry models.TokenInfo) (*models.TokenInfo, *pq.Error) {
 
 	entry.Hash = entry.GenerateHash()
 

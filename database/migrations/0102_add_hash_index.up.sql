@@ -1,0 +1,1 @@
+CREATE UNIQUE INDEX IF NOT EXISTS tokens_hash ON tokens (hash); 
