@@ -1,1 +1,0 @@
-swagger generate server -f spec\swagger.yaml -A zus --default-scheme=http

@@ -1,32 +1,44 @@
+# Title: ZUS
 
-## Installation
+// copilot: describe the project here
+
+## Prerequisites
+
+* Go 1.9+
+* PostgreSQL 9.6+
+* GNU Make 3.81+
+
+## Local installation
+
+```
+make deps
+make setupdb
+make build
+```
+
+## Configuration
+
+Configuration:
+```
+cp config.yml.example config.yml
+```
 
 Database configuration:
 ```
-CREATE USER zus;
-ALTER USER zus WITH ENCRYPTED PASSWORD 'y8364mry5w';
-CREATE DATABASE "zus";
-GRANT ALL PRIVILEGES ON DATABASE zus TO zus;
-
-/use zus;
-CREATE EXTENSION "uuid-ossp";
+make setupdb
 ```
 
 ## Validation
 
 Testing:
 ```
-run_tests.*
+make test
 ```
 
 ## Running
 
 Locally:
 ```
-go build cmd\zus-server\main.go
-```
-
-Deploying:
-```
-deploy.sh
+make build
+./build/zus
 ```
