@@ -1,7 +1,36 @@
 # Title: ZUS
 
-// copilot: describe the project here
+## Description
+This API allows you to perform actions related to tokens and their hashes. Here's a brief overview of the available endpoints:
 
+### API Endpoints
+
+#### Create a New Hash
+- Endpoint: POST /hash
+- Description: Generates a new hash for a given token.
+- Parameters:
+  - token (required): The token for which a hash will be generated.
+- Responses:
+  - 200: The operation was successful. Returns the generated hash and the creation timestamp.
+  Default: An error occurred. Returns the error code and message.
+  
+#### Get All Received Hashes
+- Endpoint: GET /hashes
+- Description: Retrieves all the received hashes.
+- Responses:
+  - 200: The operation was successful. Returns a list of tokens along with their associated hashes and creation timestamps.
+Default: An error occurred. Returns the error code and message.
+
+#### Get Hash Info
+- Endpoint: GET /hashes/{id}
+- Description: Retrieves information about a specific hash.
+- Parameters:
+  - id (required): The ID of the hash for which information is requested.
+- Responses:
+  - 200: The operation was successful. Returns details about the token, including its associated hash and creation timestamp.
+Default: An error occurred. Returns the error code and message.
+
+        
 ## Prerequisites
 
 * Go 1.9+
