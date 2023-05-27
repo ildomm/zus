@@ -6,7 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="1bbebf03-489f-485b-9ce8-af4ed74ea519" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -113,6 +112,13 @@
         </leaf>
       </split-second>
     </splitter>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Go File" />
+      </list>
+    </option>
   </component>
   <component name="GOROOT" url="file://$USER_HOME$/.asdf/installs/golang/1.20.1/go" />
   <component name="Git.Settings">
@@ -255,6 +261,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "DefaultGoTemplateProperty": "Go File",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.go.formatter.settings.were.checked": "true",
     "RunOnceActivity.go.migrated.go.modules.settings": "true",
@@ -269,13 +276,37 @@
     "nodejs_package_manager_path": "npm"
   }
 }]]></component>
-  <component name="RunManager" selected="Go Test.TestTokensHandler in github.com/ildomm/zus/handlers/tokens">
+  <component name="RunManager" selected="Go Test.TestTokenInfoGeneratingHash in github.com/ildomm/zus/models">
     <configuration name="go build main.go" type="GoApplicationRunConfiguration" factoryName="Go Application" nameIsGenerated="true">
       <module name="zus" />
       <working_directory value="C:/Dev/Projects/go/src/github.com/ildomm/zus" />
       <go_parameters value="-i" />
       <kind value="FILE" />
       <filePath value="C:/Dev/Projects/go/src/github.com/ildomm/zus/cmd/zus-server/main.go" />
+      <method v="2" />
+    </configuration>
+    <configuration name="TestTokenInfoGeneratingHash in github.com/ildomm/zus/models" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="zus" />
+      <working_directory value="$PROJECT_DIR$/models" />
+      <root_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <package value="github.com/ildomm/zus/models" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <pattern value="^\QTestTokenInfoGeneratingHash\E$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="TestTokenInfoValidate in github.com/ildomm/zus/models" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="zus" />
+      <working_directory value="$PROJECT_DIR$/models" />
+      <root_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <package value="github.com/ildomm/zus/models" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <pattern value="^\QTestTokenInfoValidate\E$" />
       <method v="2" />
     </configuration>
     <configuration name="TestTokensHandler in github.com/ildomm/zus/handlers/tokens" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
@@ -312,6 +343,8 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Go Test.TestTokenInfoGeneratingHash in github.com/ildomm/zus/models" />
+        <item itemvalue="Go Test.TestTokenInfoValidate in github.com/ildomm/zus/models" />
         <item itemvalue="Go Test.TestTokensHandler in github.com/ildomm/zus/handlers/tokens" />
         <item itemvalue="Go Test.tokens_handler_test.go" />
         <item itemvalue="Go Test.database_test.go" />
@@ -383,6 +416,28 @@
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/models/token_info_test.go</url>
+          <line>37</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/models/token_info_test.go</url>
+          <line>65</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+    <watches-manager>
+      <configuration name="GoTestRunConfiguration">
+        <watch expression="tt.want.Error()" language="go" />
+        <watch expression="got.Error()" language="go" />
+      </configuration>
+    </watches-manager>
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/rest-api.http">
