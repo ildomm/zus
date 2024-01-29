@@ -1,3 +1,5 @@
+[![Go Report Card](https://goreportcard.com/badge/github.com/ildomm/zus?cache=v1)]
+
 # Title: ZUS
 
 ## Description
